@@ -2,7 +2,7 @@ const pg = require("pg");
 const settings = require("./settings"); // famous_people.sql
 const name = process.argv[2];
 
-if (process.argv.length <= 2) { return console.error('please provide an id to look up'); }
+if (process.argv.length <= 2) { return console.error('please provide an name to look up'); }
 
 const client = new pg.Client({
   user     : settings.user,
@@ -18,7 +18,7 @@ client.connect((err) => {
     return console.error("Connection Error", err);
   }
   console.log("Searching...")
-  client.query('SELECT * FROM famous_people WHERE first_name = $1::text OR last_name = $1::text' , [name], (err, result) => {
+  client.query("SELECT id,first_name,last_name, to_char(birthdate, 'YYYY/MM/DD') AS birthdate FROM famous_people WHERE first_name = $1::text OR last_name = $1::text" , [name], (err, result) => {
     if (err) {
       return console.error("error running query", err);
     }
