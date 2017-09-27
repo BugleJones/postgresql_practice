@@ -1,0 +1,22 @@
+{
+  "name": "postgresql_practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "add_person.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BugleJones/postgresql_practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BugleJones/postgresql_practice/issues"
+  },
+  "homepage": "https://github.com/BugleJones/postgresql_practice#readme",
+  "dependencies": {
+    "knex": "^0.13.0"
+  }
+}
