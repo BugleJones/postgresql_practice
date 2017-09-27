@@ -1,7 +1,3 @@
-const name = process.argv.slice[2];
-
-if (process.argv.length <= 2) { return console.error('Please provide a name to look up'); }
-
 var knex = require('knex')({
   client: 'pg',
   connection: {
@@ -14,21 +10,30 @@ var knex = require('knex')({
   }
 });
 
+const name = process.argv.slice(2);
+
 knex.select()
 .from('famous_people')
-.where('first_name', name)
-.orWhere('last_name', name)
-.asCallback((err, results) => {
-  if (err) {
-    return console.error("Connection Error", err);
-  }
-  console.log("Searching...")
-  results.forEach((result) => {
-    console.log(`Found 1 person(s) by the name '${name}':
-- ${result.rows[0].id}: ${result.rows[0].first_name} ${result.rows[0].last_name}, born '${result.rows[0].birthdate}'`);
+.where({
+  first_name: name[0]
+})
+.orWhere({
+  last_name: name[0]
+})
+.asCallback((err, person) => {
+    if (err) {
+      return console.error("Connection Error", err);
+    }
+    console.log("Searching...");
+    if (person === null) {
+      console.log("No record found");
+    } else {
+      person.forEach((result) => {
+        console.log(`Found 1 person(s) by the name '${name}':
+    - ${result.id}: ${result.first_name} ${result.last_name}, born '${result.birthdate}'`);
+      });
+    }
   });
-});
-
 
 // node lookup_people.js Lincoln
 // Searching ...
