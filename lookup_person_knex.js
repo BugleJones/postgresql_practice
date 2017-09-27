@@ -32,6 +32,7 @@ knex.select()
         console.log(`Found 1 person(s) by the name '${name}':
     - ${result.id}: ${result.first_name} ${result.last_name}, born '${result.birthdate}'`);
       });
+    knex.destroy();
     }
   });
 
